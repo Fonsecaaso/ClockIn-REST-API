@@ -1,0 +1,16 @@
+com/ilia/Controle/de/Ponto/API/Repository/Mapper/RegistroRowMapper.class
+com/ilia/Controle/de/Ponto/API/Service/BatidaService.class
+com/ilia/Controle/de/Ponto/API/Controller/RelatorioController.class
+com/ilia/Controle/de/Ponto/API/Controller/AlocacoesController.class
+com/ilia/Controle/de/Ponto/API/Service/AlocacoesService.class
+com/ilia/Controle/de/Ponto/API/ControleDePontoApiApplication.class
+com/ilia/Controle/de/Ponto/API/Repository/RelatorioRepository.class
+com/ilia/Controle/de/Ponto/API/Entity/Alocacao.class
+com/ilia/Controle/de/Ponto/API/Entity/Registro.class
+com/ilia/Controle/de/Ponto/API/Entity/Relatorio.class
+com/ilia/Controle/de/Ponto/API/Entity/Momento.class
+com/ilia/Controle/de/Ponto/API/Repository/PontoRepository.class
+com/ilia/Controle/de/Ponto/API/Service/RelatorioService.class
+com/ilia/Controle/de/Ponto/API/Controller/BatidasController.class
+com/ilia/Controle/de/Ponto/API/Entity/Relatorio$RelatorioBuilder.class
+com/ilia/Controle/de/Ponto/API/Entity/Mensagem.class

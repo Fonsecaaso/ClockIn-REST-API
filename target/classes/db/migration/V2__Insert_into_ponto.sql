@@ -1,0 +1,1 @@
+INSERT INTO ponto(dia,horario) values('dia','horario');
