@@ -1,0 +1,37 @@
+version: '3'
+services:
+  mysqldb:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    networks:
+      net:
+  controle-de-ponto-v1:
+    depends_on:
+      - mysqldb
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      TZ: America/Sao_Paulo
+      server.error.include-message: always
+      spring.datasource.url: 'jdbc:mysql://mysqldb:3306/db?allowPublicKeyRetrieval=true&useSSL=false'
+      spring.datasource.username: 'root'
+      spring.datasource.password: 'password'
+    ports:
+      - '8088:8080'
+    command: mvn spring-boot:run
+    networks:
+      net:
+networks:
+  net:
+    driver: bridge
