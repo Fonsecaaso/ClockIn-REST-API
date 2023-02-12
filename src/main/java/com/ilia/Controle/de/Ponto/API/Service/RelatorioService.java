@@ -1,5 +1,6 @@
 package com.ilia.Controle.de.Ponto.API.Service;
 
+import com.ilia.Controle.de.Ponto.API.Entity.Alocacao;
 import com.ilia.Controle.de.Ponto.API.Entity.Mensagem;
 import com.ilia.Controle.de.Ponto.API.Entity.Registro;
 import com.ilia.Controle.de.Ponto.API.Entity.Relatorio;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -30,38 +29,47 @@ public class RelatorioService {
     }
 
     public ResponseEntity<?> geraRelatorioMensal(String mes) {
-        Mensagem msg = new Mensagem("Relatório não encontrado");
-
-        if (mesNotFound(mes))
-            return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
 
         List<Registro> registros = pontoRepository.getRegistros(mes);
+        List<Alocacao> alocacoes = pontoRepository.getAlocacoes(mes);
+
+        if (registros.size() == 0) {
+            Mensagem msg = new Mensagem("Relatório não encontrado");
+            return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+        }
 
         int horasTrabalhadas = pontoRepository.getHorasTrabalhadas(mes);
 
         AtomicInteger horasRegistradas = new AtomicInteger();
 
         registros.forEach(registro -> {
+            Collections.sort(registro.getHorarios());
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-            try {
-                Date date1 = format.parse(registro.getHorarios().get(0));
-                Date date2 = format.parse(registro.getHorarios().get(1));
-                horasRegistradas.addAndGet(date2.getHours() - date1.getHours());
-            } catch (ParseException ignored) {}
-            try {
-                Date date3 = format.parse(registro.getHorarios().get(2));
-                Date date4 = format.parse(registro.getHorarios().get(3));
-                horasRegistradas.addAndGet(date4.getHours() - date3.getHours());
-            } catch (ParseException ignored) {}
+            if (registro.getHorarios().size()>1){
+                try {
+                    Date date1 = format.parse(registro.getHorarios().get(0));
+                    Date date2 = format.parse(registro.getHorarios().get(1));
+                    horasRegistradas.addAndGet(date2.getHours() - date1.getHours());
+                } catch (ParseException ignored) {
+                }
+            }
+            if (registro.getHorarios().size()>3){
+                try {
+                    Date date3 = format.parse(registro.getHorarios().get(2));
+                    Date date4 = format.parse(registro.getHorarios().get(3));
+                    horasRegistradas.addAndGet(date4.getHours() - date3.getHours());
+                } catch (ParseException ignored) {
+                }
+            }
         });
 
         int horasExcedentes = 0;
         int horasDevidas = 0;
 
-        if (horasRegistradas.intValue()>horasTrabalhadas){
-            horasDevidas = horasRegistradas.intValue() - horasTrabalhadas;
-        }else{
+        if (horasRegistradas.intValue()<horasTrabalhadas){
             horasExcedentes = horasTrabalhadas - horasRegistradas.intValue();
+        }else{
+            horasDevidas = horasRegistradas.intValue() - horasTrabalhadas;
         }
 
         Relatorio relatorio = Relatorio.builder()
@@ -70,16 +78,11 @@ public class RelatorioService {
                 .horasTrabalhadas(Integer.toString(horasTrabalhadas))
                 .horasExcedentes(Integer.toString(horasExcedentes))
                 .horasDevidas(Integer.toString(horasDevidas))
+                .alocacoes(alocacoes)
                 .build();
 
         return new ResponseEntity<>(relatorio, HttpStatus.CREATED);
 
-
     }
 
-    private boolean mesNotFound(String mes) {
-
-
-        return mes.startsWith("a");
-    }
 }

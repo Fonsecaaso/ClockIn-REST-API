@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Momento {
-    //exemplo:       dataHora = "2018-08-22T08:00:00"
+    //exemplo:       dataHora = "2018-08-22 08:00:00"
     private String dataHora;
 }
