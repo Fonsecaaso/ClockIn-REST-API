@@ -21,7 +21,7 @@ public class AlocacoesService {
     }
 
     public ResponseEntity<?> insereAlocacao(Alocacao alocacao) throws ParseException {
-        if (alocacao.getTempo().compareTo(calcularHoras(alocacao.getDia()))>0){
+        if (Integer.parseInt(alocacao.getTempo())>Integer.parseInt(calcularHoras(alocacao.getDia()))){
             Mensagem msg = new Mensagem("Não pode alocar tempo maior que o tempo trabalhado no dia");
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
         }
@@ -32,7 +32,7 @@ public class AlocacoesService {
     }
 
     private String calcularHoras(String dia) throws ParseException {
-        int horas = pontoRepository.horasPorDia(dia);
+        int horas = (int)pontoRepository.horasPorDia(dia);
         return Integer.toString(horas);
     }
 }
