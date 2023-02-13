@@ -1,6 +1,6 @@
 # Sistema de ponto
 
-![](https://giphy.com/gifs/vintage-cartoon-l3q2JdGcDC7agGz16.gif)
+![](https://media.giphy.com/media/l3q2JdGcDC7agGz16/giphy.gif)
 
 Para rodar o sistema é necessário ter instalado docker e docker compose, tendo instalado basta rodar o comando:
 
