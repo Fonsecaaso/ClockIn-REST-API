@@ -14,7 +14,7 @@ Registrar um horário da jornada diária de trabalho
 #### Payload de Exemplo
 ```yml
 {
-"dataHora":"11-02-2023 20:00:00"
+"dataHora":"2024-03-13 20:00:00"
 }
 ```
 ### 2. Alocar horas trabalhadas
@@ -25,7 +25,7 @@ Alocar horas trabalhadas, de um dia de trabalho, em um projeto
 #### Payload de Exemplo
 ```yml
 {
-"dia":"12-02-2023",
+"dia":"2024-03-13",
 "tempo":"8",
 "nomeProjeto":"ilia"
 }
@@ -34,6 +34,6 @@ Alocar horas trabalhadas, de um dia de trabalho, em um projeto
 ### 3. Relatório mensal
 Geração de relatório mensal de usuário
 #### URL
-`GET localhost:8080/v1/folhas-de-ponto/{mes}`
+`GET localhost:8088/v1/folhas-de-ponto/{mes}`
 #### Parâmetro de Exemplo
-mes: 02-2023																								
+mes: 2024-03																								
