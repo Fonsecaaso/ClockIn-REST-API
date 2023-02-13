@@ -1,5 +1,7 @@
 # Sistema de ponto
 
+![](https://giphy.com/gifs/vintage-cartoon-l3q2JdGcDC7agGz16)
+
 Para rodar o sistema é necessário ter instalado docker e docker compose, tendo instalado basta rodar o comando:
 
 docker-compose up -d
