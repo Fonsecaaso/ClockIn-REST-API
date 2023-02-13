@@ -36,14 +36,14 @@ public class BatidaService {
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
         }
 
-        if (horarioJaRegistrado(momento)){
-            Mensagem msg = new Mensagem("Horário já registrado");
-            return new ResponseEntity<>(msg, HttpStatus.CONFLICT);
-        }
-
         if (fimDeSemana(momento)){
             Mensagem  msg = new Mensagem("Sábado e domingo não são permitidos como dia de trabalho");
             return new ResponseEntity<>(msg, HttpStatus.FORBIDDEN);
+        }
+
+        if (horarioJaRegistrado(momento)){
+            Mensagem msg = new Mensagem("Horário já registrado");
+            return new ResponseEntity<>(msg, HttpStatus.CONFLICT);
         }
 
         int pontoBatidoNoDia = pontoRepository.countPontos(momento);
@@ -78,7 +78,7 @@ public class BatidaService {
                 "SUNDAY".equalsIgnoreCase(dayOfWeek);
     }
 
-    private boolean horarioJaRegistrado(Momento momento) {
+    public boolean horarioJaRegistrado(Momento momento) {
         return pontoRepository.horarioJaRegistrado(momento);
     }
 
