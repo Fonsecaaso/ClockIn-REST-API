@@ -36,6 +36,6 @@ Alocar horas trabalhadas, de um dia de trabalho, em um projeto
 ### 3. Relatório mensal
 Geração de relatório mensal de usuário
 #### URL
-`GET localhost:8088/v1/folhas-de-ponto/{mes}`
+`GET localhost:8088/v1/folhas-de-ponto/mes=2024-03`
 #### Parâmetro de Exemplo
 mes: 2024-03																								
