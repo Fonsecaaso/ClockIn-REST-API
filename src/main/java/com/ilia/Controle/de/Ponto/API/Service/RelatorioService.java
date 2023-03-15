@@ -67,9 +67,9 @@ public class RelatorioService {
         int horasDevidas = 0;
 
         if (horasRegistradas.intValue()<horasTrabalhadas){
-            horasExcedentes = horasTrabalhadas - horasRegistradas.intValue();
+            horasDevidas = horasTrabalhadas - horasRegistradas.intValue();
         }else{
-            horasDevidas = horasRegistradas.intValue() - horasTrabalhadas;
+            horasExcedentes = horasRegistradas.intValue() - horasTrabalhadas;
         }
 
         Relatorio relatorio = Relatorio.builder()
